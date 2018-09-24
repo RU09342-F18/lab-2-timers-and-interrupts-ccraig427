@@ -11,7 +11,6 @@ int main(void)
 	P1DIR = BIT0;
 	P4DIR = BIT7;
 	P1REN = BIT1;
-	P4REN = ~BIT1;
 	P1OUT = BIT1;
 	P4OUT = ~BIT1;
 	P1IE = BIT1;
