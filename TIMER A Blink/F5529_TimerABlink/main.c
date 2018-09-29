@@ -18,11 +18,11 @@ void main(void)
 
 //Set up Timer1_A0 CCSFR and interrupts
     TA0CCR0 = 2500; //Capture and Compare register counter value
-    TA0CCTL0 = 0x10; //Enables Timer A0 interrupts
+    TA0CCTL0 = CCIE; //Enables Timer A0 interrupts
     TA0CTL = TASSEL_1 + MC_1 + ID_3; //TASSEL == 1 selects ACLK | MC_1 selects Up Mode
 //Set up Timer0_A0 CCSFR and interrupts for LED1
     TA1CCR0 = 2000; //Capture and Compare register counter value
-    TA1CCTL0 = 0x10; //Enables Timer A1 interrupts
+    TA1CCTL0 = CCIE; //Enables Timer A1 interrupts
     TA1CTL = TASSEL_1 + MC_1 + ID_3; //TASSEL == 1 selects ACLK | MC_1 selects Up Mode
 
     _BIS_SR(LPM0_bits + GIE); //Enables Low Power interrupts
