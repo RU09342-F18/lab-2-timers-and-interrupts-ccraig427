@@ -19,7 +19,7 @@ int main(void)
     P1IFG &= ~BIT3; //Clears P1.1 Interrupt flags
     BCSCTL3 = LFXT1S_2; //Enables Crystal Timer
 
-    TA0CTL = TASSEL_1 + ID_2 + MC_1; //Selects ACLK, Divides by 8, and in Up Mode
+    TA0CTL = TASSEL_1 + ID_2 + MC_1; //Selects ACLK, Divides by 4, and in Up Mode
     CCTL0 = CCIE; //Selects Capture and Compare Interrupt Enable request
     CCR0 = 200; //Capture and Compare Register value
     _BIS_SR(LPM0_bits + GIE); //Enable Global Interrupt
@@ -41,7 +41,7 @@ __interrupt void Button_press(void)
     {
         P1IES &=~BIT3; //Rising Edge
         TACTL=TACLR; //Clears timer
-        TA0CTL = TASSEL_1 + ID_2 + MC_2; //ACLK, Divides by 3, Continuous Mode
+        TA0CTL = TASSEL_1 + ID_2 + MC_2; //ACLK, Divides by 4, Continuous Mode
         P1OUT |= BIT6;
     }
 
@@ -51,7 +51,7 @@ __interrupt void Button_press(void)
         TA0CTL = MC_0; //Turns off Timer
         TA0CCR0 = TA0R; //Set Capture and Compare Register to counter value
         TACTL |= TACLR; //Clears timer
-        TA0CTL = TASSEL_1 + ID_2 + MC_1; //ACLK, Divides by 3, Up Mode
+        TA0CTL = TASSEL_1 + ID_2 + MC_1; //ACLK, Divides by 4, Up Mode
         P1IES |= BIT3; //Detects Falling Edge
     }
 
