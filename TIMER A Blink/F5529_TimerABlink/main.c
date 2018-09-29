@@ -14,7 +14,7 @@ void main(void)
     WDTCTL = WDTPW + WDTHOLD; //stop watchdog timer
 //Configures LEDs
     P1DIR |= LED1; //sets P1.0 as an output
-    P4DIR |= LED2; //sets P1.6 as an output
+    P4DIR |= LED2; //sets P4.7 as an output
 
 //Set up Timer1_A0 CCSFR and interrupts
     TA0CCR0 = 2500; //Capture and Compare register counter value
