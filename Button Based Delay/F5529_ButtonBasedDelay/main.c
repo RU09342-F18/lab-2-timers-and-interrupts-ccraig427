@@ -4,7 +4,7 @@
    Date Last Edited: 9/28/18
    Author: Colin Craig
    MSP430F5529 Button-Based Delay
-   Credit to Alex Marino for Button_Down Interrupt
+   Credit to Jack Pedicone for Button_Down Interrupt
    */
 int main(void)
 {
@@ -18,9 +18,9 @@ int main(void)
     P1IES |= BIT1; //Falling edge will create an interrupt
     P1IFG &= ~BIT1; //Clears P1.1 Interrupt flags
 
-    TB0CTL = TASSEL_1 + ID_3 + MC_1; //Selects ACLK, Divides by 8, and in Up Mode
+    TB0CTL = TASSEL_1 + ID_2 + MC_1; //Selects ACLK, Divides by 4, and in Up Mode
     TB0CCTL0 = CCIE; //Selects Capture and Compare Interrupt Enable request
-    TB0CCR0 = 1000; //Capture and Compare Register value
+    TB0CCR0 = 200; //Capture and Compare Register value
     _BIS_SR(LPM0_bits + GIE); //Enable Global Interrupt
     return 0;
 }
@@ -40,8 +40,8 @@ __interrupt void Button_down(void)
     {
         P1IES &=~BIT1; //Rising Edge
         TBCTL=TBCLR; //Clears timer
-        TB0CTL = TASSEL_1 + ID_3 + MC_2; //ACLK, Divides by 3, Continuous Mode
-        P4OUT |= BIT7; 
+        TB0CTL = TASSEL_1 + ID_3 + MC_2; //ACLK, Divides by 8, Continuous Mode
+        P4OUT |= BIT7;
     }
 
     else //When button is let go
@@ -50,7 +50,7 @@ __interrupt void Button_down(void)
         TB0CTL = MC_0; //Turns off Timer
         TB0CCR0 = TB0R; //Set Capture and Compare Register to counter value
         TBCTL |= TBCLR; //Clears timer
-        TB0CTL = TASSEL_1 + ID_3 + MC_1; //ACLK, Divides by 3, Up Mode
+        TB0CTL = TASSEL_1 + ID_3 + MC_1; //ACLK, Divides by 8, Up Mode
         P1IES |= BIT1; //Detects Falling Edge
     }
 
